@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Klyvora is a student knowledge-sharing prototype where learners explore study topics, read practical tips and share what worked for them.">
+  <title>Klyvora — student knowledge sharing</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="home">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="#/home">
+        <svg class="brand__mark" width="34" height="34" viewBox="0 0 40 40" role="img" aria-label="Klyvora logo" focusable="false">
+        <rect x="1.5" y="1.5" width="37" height="37" rx="11" fill="#2f86e0"></rect>
+        <path d="M14 9.5v21" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round"></path>
+        <path d="M14.5 20 26.5 10.5" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"></path>
+        <path d="M14.5 20 26.5 29.5" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"></path>
+        <circle cx="30" cy="20" r="2.6" fill="#bfe0fb"></circle>
+      </svg>
+        <span>Klyvora<span class="brand__tag">Learn &amp; share</span></span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="stroke:currentColor;stroke-width:2;fill:none">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        Menu
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+        <ul>
+        <li><a href="#/home">Home</a></li>
+        <li><a href="#/dashboard">Dashboard</a></li>
+        <li><a href="#/topics">Study Topics</a></li>
+        <li><a href="#/bookmarks">Bookmarks</a></li>
+        <li><a href="#/profile">Profile</a></li>
+        <li><a href="#/about">About</a></li>
+          <li class="nav-cta"><a href="#/create-post">Create Post</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div id="view"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div>
+          <a class="brand brand--light" href="#/home">
+            <svg class="brand__mark" width="34" height="34" viewBox="0 0 40 40" role="img" aria-label="Klyvora logo" focusable="false">
+        <rect x="1.5" y="1.5" width="37" height="37" rx="11" fill="#2f86e0"></rect>
+        <path d="M14 9.5v21" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round"></path>
+        <path d="M14.5 20 26.5 10.5" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"></path>
+        <path d="M14.5 20 26.5 29.5" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"></path>
+        <circle cx="30" cy="20" r="2.6" fill="#bfe0fb"></circle>
+      </svg>
+            <span>Klyvora<span class="brand__tag">Learn &amp; share</span></span>
+          </a>
+          <p>A frontend-only prototype for a student knowledge-sharing community. No accounts, no backend and no tracking.</p>
+        </div>
+        <div>
+          <h2>Explore</h2>
+          <ul>
+            <li><a href="#/dashboard">Dashboard</a></li>
+            <li><a href="#/topics">Study topics</a></li>
+            <li><a href="#/create-post">Create a post</a></li>
+            <li><a href="#/bookmarks">Bookmarks</a></li>
+            <li><a href="#/profile">Profile</a></li>
+            <li><a href="#/about">About Klyvora</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>This prototype</h2>
+          <ul>
+            <li><a href="#/about?section=limitations">Known limitations</a></li>
+            <li><a href="#/about?section=testing">Testing notes</a></li>
+            <li><button type="button" class="btn btn--ghost btn--sm js-reset-demo">Restart demo data</button></li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        <span>Klyvora &mdash; sample school project with fictional content.</span>
+        <span>Built with HTML, CSS and vanilla JavaScript.</span>
+      </div>
+    </div>
+  </footer>
+
+  <template id="tpl-home">
+    <section class="hero">
+      <div class="container hero__inner">
+        <div>
+          <p class="eyebrow">Student knowledge sharing</p>
+          <h1>Study better, together.</h1>
+          <p class="lead">Klyvora is where students collect the explanations, tips and small discoveries that actually help. Explore a topic, read what other learners found useful, and pass on what worked for you.</p>
+          <div class="btn-group">
+            <a class="btn" href="#/topics">Explore study topics</a>
+            <a class="btn btn--secondary" href="#/dashboard">Open the dashboard</a>
+          </div>
+
+          <form id="home-search-form" action="#/topics" method="get" role="search" style="margin-top:26px;max-width:520px">
+            <div class="search-field">
+              <label class="sr-only" for="home-search">Search study material</label>
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"></circle><line x1="16" y1="16" x2="21" y2="21"></line></svg>
+              <input type="search" id="home-search" name="q" placeholder="Search posts, topics or authors" autocomplete="off">
+            </div>
+            <div class="btn-group" style="margin-top:10px">
+              <button class="btn" type="submit">Search Klyvora</button>
+              <a class="btn btn--ghost" href="#/dashboard">Browse everything</a>
+            </div>
+          </form>
+
+          <div class="hero__stats">
+            <div class="stat"><strong id="stat-posts">0</strong><span>Sample posts</span></div>
+            <div class="stat"><strong id="stat-topics">0</strong><span>Study topics</span></div>
+            <div class="stat"><strong id="stat-comments">0</strong><span>Comments</span></div>
+          </div>
+        </div>
+
+        <aside class="hero__panel" aria-labelledby="hero-panel-title">
+          <h2 id="hero-panel-title">How Klyvora works</h2>
+          <ul class="mini-list">
+            <li><span><strong>Browse by topic.</strong> Six study areas, each with posts written for students.</span></li>
+            <li><span><strong>Read and react.</strong> Like the posts that help, save the ones you want to come back to.</span></li>
+            <li><span><strong>Add your own.</strong> Write a post, comment on someone else's, and see it appear everywhere.</span></li>
+          </ul>
+          <p class="small muted mb-0">No sign-in needed. This is a prototype, so everything you change is temporary and resets when the page is refreshed.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="featured-topics-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 id="featured-topics-title">Featured study topics</h2>
+            <p>A few of the areas students share the most about.</p>
+          </div>
+          <a class="btn btn--secondary btn--sm" href="#/topics">See all six topics</a>
+        </div>
+        <div class="grid grid--3" id="home-topics"></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="latest-posts-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 id="latest-posts-title">Latest posts</h2>
+            <p>Recently published tips and explanations from the sample community.</p>
+          </div>
+          <a class="btn btn--secondary btn--sm" href="#/dashboard">Open the dashboard</a>
+        </div>
+        <div id="home-posts"></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="purpose-title">
+      <div class="container">
+        <div class="grid grid--2">
+          <div>
+            <h2 id="purpose-title">Why Klyvora exists</h2>
+            <p>Most useful studying advice is buried in group chats, notebooks and hallway conversations. Klyvora gives that advice somewhere to live: short, practical posts sorted by the subject they belong to.</p>
+            <p>Reading a tip that a classmate actually tried is more convincing than a generic study guide. Writing one down helps the author just as much as the reader.</p>
+            <a class="btn btn--secondary btn--sm" href="#/about">Read more about the project</a>
+          </div>
+          <div class="card" aria-labelledby="tour-title">
+            <h2 id="tour-title" style="font-size:1.15rem">Take a tour of the prototype</h2>
+            <ul class="mini-list">
+              <li><span><a href="#/dashboard">Dashboard</a> &mdash; see everything at a glance and filter it.</span></li>
+              <li><span><a href="#/topics">Study topics</a> &mdash; browse the six subject areas.</span></li>
+              <li><span><a href="#/create-post">Create post</a> &mdash; publish something and watch it appear.</span></li>
+              <li><span><a href="#/bookmarks">Bookmarks</a> &mdash; keeps the posts you saved this session.</span></li>
+              <li><span><a href="#/profile">Profile</a> &mdash; a fictional student you can edit.</span></li>
+              <li><span><a href="#/about">About</a> &mdash; purpose, limitations and testing notes.</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+  </template>
+<template id="tpl-dashboard">
+    <div class="container section">
+      <div class="layout">
+        <aside class="sidebar">
+          <nav aria-label="Dashboard sections">
+            <h2>On this page</h2>
+            <ul>
+              <li><a href="#welcome-title">Welcome</a></li>
+              <li><a href="#browse-title">Browse posts</a></li>
+              <li><a href="#overview-title">Overview</a></li>
+              <li><a href="#your-posts-title">Your posts</a></li>
+            </ul>
+          </nav>
+
+          <div class="sidebar__block">
+            <h2>Quick actions</h2>
+            <ul>
+              <li><a href="#/create-post">Create a post</a></li>
+              <li><a href="#/bookmarks">Open bookmarks</a></li>
+              <li><a href="#/topics">Browse study topics</a></li>
+              <li><a href="#/profile">Edit demo profile</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar__block">
+            <h2>Demo session</h2>
+            <p class="small muted">Posts, likes, bookmarks and comments you add here last until the page is refreshed. Nothing is saved permanently.</p>
+            <button type="button" class="btn btn--ghost btn--sm btn--block js-reset-demo">Restart demo data</button>
+          </div>
+        </aside>
+
+        <div class="stack">
+          <section class="card" aria-labelledby="welcome-title">
+            <h1 id="welcome-title" style="margin-bottom:6px">Welcome back, <span id="welcome-name">student</span>.</h1>
+            <p class="muted">This is your view of the Klyvora prototype: what is new, what is popular, and what you have collected so far.</p>
+
+            <div class="grid grid--4">
+              <div class="stat"><strong id="stat-mine">0</strong><span>Your posts</span></div>
+              <div class="stat"><strong id="stat-bookmarks">0</strong><span>Bookmarks</span></div>
+              <div class="stat"><strong id="stat-likes">0</strong><span>Posts liked</span></div>
+              <div class="stat"><strong id="stat-my-comments">0</strong><span>Comments written</span></div>
+            </div>
+
+            <div class="btn-group" style="margin-top:20px">
+              <a class="btn" href="#/create-post">Create a post</a>
+              <a class="btn btn--secondary" href="#/bookmarks">Go to bookmarks</a>
+            </div>
+          </section>
+
+          <section aria-labelledby="browse-title">
+            <div class="section-head">
+              <div>
+                <h2 id="browse-title">Browse posts</h2>
+                <p>Search by title, content, topic or author, then narrow the list with a topic filter.</p>
+              </div>
+            </div>
+            <div id="dashboard-toolbar"></div>
+            <div id="dashboard-results" style="margin-top:20px"></div>
+          </section>
+
+          <div class="grid grid--2" id="overview-grid">
+            <section class="card" aria-labelledby="overview-title">
+              <h2 id="overview-title" style="font-size:1.15rem">Popular study topics</h2>
+              <p class="small muted">Ordered by how much material each topic holds.</p>
+              <ul class="mini-list" id="dashboard-topics"></ul>
+            </section>
+
+            <section class="card" aria-labelledby="recent-title">
+              <h2 id="recent-title" style="font-size:1.15rem">Recent posts</h2>
+              <p class="small muted">The four newest posts in this session.</p>
+              <ul class="mini-list" id="dashboard-recent"></ul>
+            </section>
+          </div>
+
+          <section class="card" aria-labelledby="your-posts-title">
+            <h2 id="your-posts-title" style="font-size:1.15rem">Your posts</h2>
+            <p class="small muted">Posts you create during this session. You can edit or delete them from their detail page.</p>
+            <div id="dashboard-mine"></div>
+          </section>
+        </div>
+      </div>
+    </div>
+  
+  </template>
+<template id="tpl-topics">
+    <div class="container section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Explore</p>
+          <h1 id="topics-title">Study topics</h1>
+          <p>Six areas of student knowledge. Search inside them or filter the whole list by topic.</p>
+        </div>
+        <a class="btn btn--secondary btn--sm" href="#/dashboard">View the dashboard</a>
+      </div>
+
+      <div id="topics-toolbar"></div>
+
+      <section class="section--tight" aria-labelledby="topic-cards-title">
+        <h2 id="topic-cards-title">Topic overview</h2>
+        <p class="small muted">Choose "Show posts" on a card to filter the list below.</p>
+        <div id="topic-grid"></div>
+      </section>
+
+      <section class="section--tight" id="topic-posts" aria-label="Posts matching the current filters"></section>
+
+      <p class="small muted">Nothing on this page requires an account. Counts and results always reflect the current demo session.</p>
+    </div>
+  
+  </template>
+<template id="tpl-post">
+    <div class="container container--narrow section">
+      <p class="small">
+        <a href="#/dashboard">&larr; Back to dashboard</a>
+        <span class="muted"> &middot; </span>
+        <a href="#/topics">Study topics</a>
+      </p>
+      <div id="post-root"></div>
+    </div>
+  
+  </template>
+<template id="tpl-create-post">
+    <div class="container container--narrow section">
+      <p class="eyebrow">Contribute</p>
+      <h1 id="form-heading">Create a post</h1>
+      <p id="form-intro">Share a study tip, an explanation or something you learned the hard way. Keep it short and useful, and other students will actually read it.</p>
+
+      <div class="alert alert--info" style="margin-bottom:22px">
+        Posts are held in this demo session only. Refreshing the page clears everything you have added.
+      </div>
+
+      <p class="alert alert--warning" id="form-status" role="status" hidden></p>
+
+      <div class="card">
+        <form class="form" id="post-form" novalidate>
+          <div class="field" id="field-title">
+            <label for="post-title">Post title <span class="required" aria-hidden="true">*</span></label>
+            <input type="text" id="post-title" name="title" maxlength="120" autocomplete="off" aria-describedby="title-hint title-error" required>
+            <p class="hint" id="title-hint">At least 5 characters. Say what the reader will learn.</p>
+            <p class="field-error" id="title-error" hidden></p>
+          </div>
+
+          <div class="field" id="field-category">
+            <label for="post-category">Study topic <span class="required" aria-hidden="true">*</span></label>
+            <select id="post-category" name="category" aria-describedby="category-hint category-error" required></select>
+            <p class="hint" id="category-hint">Pick the topic where this post will be easiest to find.</p>
+            <p class="field-error" id="category-error" hidden></p>
+          </div>
+
+          <div class="field" id="field-content">
+            <label for="post-content">Post content <span class="required" aria-hidden="true">*</span></label>
+            <textarea id="post-content" name="content" rows="12" aria-describedby="content-hint content-error" required></textarea>
+            <p class="hint" id="content-hint">At least 40 characters. Leave a blank line between paragraphs.</p>
+            <p class="field-error" id="content-error" hidden></p>
+          </div>
+
+          <div class="btn-group">
+            <button class="btn" type="submit" id="submit-button">Publish post</button>
+            <a class="btn btn--ghost" id="cancel-link" href="#/dashboard">Cancel</a>
+          </div>
+        </form>
+      </div>
+
+      <p class="small muted">Required fields are marked with an asterisk. Nothing is sent anywhere &mdash; the form is handled entirely in the browser.</p>
+    </div>
+  
+  </template>
+<template id="tpl-profile">
+    <div class="container section">
+      <div class="card">
+        <div class="profile-head">
+          <span class="avatar avatar--lg" id="profile-avatar" aria-hidden="true">?</span>
+          <div class="profile-head__info">
+            <p class="eyebrow mb-0">Student profile</p>
+            <h1 id="profile-name">Loading profile&hellip;</h1>
+            <p class="username" id="profile-username">@username</p>
+            <p id="profile-bio"></p>
+            <div class="profile-stats">
+              <div><strong id="stat-mine">0</strong>Posts created</div>
+              <div><strong id="stat-bookmarks">0</strong>Posts bookmarked</div>
+              <div><strong id="stat-likes">0</strong>Posts liked</div>
+              <div><strong id="stat-my-comments">0</strong>Comments written</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="section--tight" aria-labelledby="profile-posts-title">
+        <div class="section-head">
+          <div>
+            <h2 id="profile-posts-title">Posts from this profile</h2>
+            <p>Only posts created during this demo session belong to this fictional student.</p>
+          </div>
+          <a class="btn btn--secondary btn--sm" href="#/create-post">Create a post</a>
+        </div>
+        <div id="profile-posts"></div>
+      </section>
+
+      <section class="section--tight" aria-labelledby="edit-profile-title">
+        <h2 id="edit-profile-title">Edit the demo profile</h2>
+        <p>Change the fictional details below. Your posts and comments update immediately, and nothing is sent anywhere.</p>
+        <div class="card">
+          <p class="alert alert--success" id="profile-status" role="status" hidden></p>
+          <form class="form" id="profile-form" novalidate>
+            <div class="field" id="field-profile-name">
+              <label for="profile-name-input">Display name</label>
+              <input type="text" id="profile-name-input" name="displayName" maxlength="40" autocomplete="off" aria-describedby="profile-name-hint profile-name-error">
+              <p class="hint" id="profile-name-hint">2 to 40 characters. Shown next to your posts and comments.</p>
+              <p class="field-error" id="profile-name-error" hidden></p>
+            </div>
+
+            <div class="field" id="field-profile-username">
+              <label for="profile-username-input">Username</label>
+              <input type="text" id="profile-username-input" name="username" maxlength="20" autocomplete="off" aria-describedby="profile-username-hint profile-username-error">
+              <p class="hint" id="profile-username-hint">3 to 20 letters, numbers, dots, dashes or underscores.</p>
+              <p class="field-error" id="profile-username-error" hidden></p>
+            </div>
+
+            <div class="field" id="field-profile-bio">
+              <label for="profile-bio-input">Short biography</label>
+              <textarea id="profile-bio-input" name="bio" rows="4" maxlength="240" aria-describedby="profile-bio-hint profile-bio-error"></textarea>
+              <p class="hint" id="profile-bio-hint">Up to 240 characters. Please keep it fictional.</p>
+              <p class="field-error" id="profile-bio-error" hidden></p>
+            </div>
+
+            <div class="btn-group">
+              <button class="btn" type="submit">Save profile</button>
+              <button class="btn btn--ghost js-reset-demo" type="button">Restart demo data</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <p class="small muted">No real names, email addresses or account details are collected anywhere in this prototype.</p>
+    </div>
+  
+  </template>
+<template id="tpl-bookmarks">
+    <div class="container section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Saved for later</p>
+          <h1>Your bookmarks</h1>
+          <p id="bookmark-summary">You have no saved posts right now.</p>
+        </div>
+        <a class="btn btn--secondary btn--sm" href="#/topics">Find more material</a>
+      </div>
+
+      <p class="small muted">Bookmarks last for this demo session only. Refresh the page and the list returns to its original empty state.</p>
+
+      <div id="bookmark-list" style="margin-top:22px"></div>
+    </div>
+  
+  </template>
+<template id="tpl-about">
+    <div class="container container--narrow section">
+      <p class="eyebrow">About the project</p>
+      <h1>What Klyvora is</h1>
+      <p class="lead">Klyvora is a student knowledge-sharing website where learners explore study topics, discover useful posts, share learning tips and react to educational content.</p>
+      <p class="small muted" id="about-counts">Loading the current demo totals&hellip;</p>
+
+      <section class="section--tight" aria-labelledby="purpose-title">
+        <h2 id="purpose-title">Its purpose</h2>
+        <p>Klyvora exists to gather the practical side of studying in one place. Textbooks explain the theory, but students spend most of their time on the everyday problems: how to remember a diagram, how to start an essay, how to debug without panicking.</p>
+        <p>This prototype tests one idea: that a lightweight, topic-based feed of short student posts is a useful way to hold that knowledge.</p>
+      </section>
+
+      <section class="section--tight" aria-labelledby="use-title">
+        <h2 id="use-title">How students can use it</h2>
+        <ul>
+          <li><strong>Explore a topic</strong> on the study topics page to see what already exists in a subject.</li>
+          <li><strong>Search</strong> by keyword across post titles, content, topics and author names.</li>
+          <li><strong>Filter and read</strong> by choosing a topic chip, or combine a search with a filter.</li>
+          <li><strong>React</strong> by liking a post, saving it as a bookmark, or joining the comment thread.</li>
+          <li><strong>Contribute</strong> by writing your own post and editing or deleting it later in the same session.</li>
+          <li><strong>Shape your profile</strong> by editing the fictional display name, username and biography.</li>
+        </ul>
+        <div class="btn-group">
+          <a class="btn" href="#/topics">Start exploring</a>
+          <a class="btn btn--secondary" href="#/dashboard">Open the dashboard</a>
+        </div>
+      </section>
+
+      <section class="section--tight" aria-labelledby="sharing-title">
+        <h2 id="sharing-title">Why sharing helps</h2>
+        <p>Explaining something is one of the most reliable ways to understand it. A student who has just solved a problem often describes it more clearly than a textbook, because they still remember what was confusing.</p>
+        <p>Reading a short post written by someone on the same course also removes the feeling of being the only person who did not follow the lecture. That is a big part of why study tips spread so well by word of mouth.</p>
+      </section>
+
+      <section class="section--tight" aria-labelledby="limitations">
+        <h2 id="limitations">Prototype limitations</h2>
+        <p>Klyvora is a frontend prototype, and some things are deliberately simplified. Being clear about them is part of the project.</p>
+        <ul>
+          <li>All posts, comments and profiles are fictional sample content. There are no real users.</li>
+          <li>There is no login, registration or account system, and no personal information is requested or stored.</li>
+          <li>There is no backend, database or external API. Every feature runs in the browser.</li>
+          <li>There are no permanent changes. Temporary demo state is kept only while you navigate between pages, and a page refresh resets everything to the sample content.</li>
+          <li>Because each page is a separate file, the demo state is mirrored into <code>sessionStorage</code> so it can survive navigation between pages. It is never written to <code>localStorage</code>, and it is discarded when the tab is closed.</li>
+          <li>Likes and bookmarks belong to the single simulated visitor, not to individual accounts, so there is no way to test two students reacting separately.</li>
+          <li>Post editing is restricted to posts created during the current session, which keeps the sample content consistent.</li>
+        </ul>
+      </section>
+
+      <section class="section--tight" aria-labelledby="testing">
+        <h2 id="testing">Testing notes</h2>
+        <p>The main workflows were exercised with a headless DOM harness and by serving the files locally. The manual checklist below is worth repeating after any change.</p>
+        <ol>
+          <li>Open every page from the header navigation and confirm each one loads without console errors.</li>
+          <li>Type in the search box on the dashboard and on study topics; confirm results change as you type and that "Clear search" restores the full list.</li>
+          <li>Select a topic chip while a search is active and confirm both filters apply together.</li>
+          <li>Like and unlike a post; confirm the count changes by one and does not double up.</li>
+          <li>Bookmark a post, open the bookmarks page, remove it there, then confirm the button on the post card is back to "Save".</li>
+          <li>Submit an empty comment, then a real one, and confirm it appears under the correct post.</li>
+          <li>Create a post, open it, edit it, then delete it and confirm it disappears from every list.</li>
+          <li>Refresh the page and confirm the demo returns to the original sample content.</li>
+          <li>Resize to a phone width and check the menu toggle, cards and forms.</li>
+        </ol>
+      </section>
+
+      <section class="section--tight" aria-labelledby="next-title">
+        <h2 id="next-title">Where to go next</h2>
+        <ul class="mini-list">
+          <li><span><a href="#/home">Home</a> &mdash; the introduction and featured content.</span></li>
+          <li><span><a href="#/dashboard">Dashboard</a> &mdash; search, filters and an overview.</span></li>
+          <li><span><a href="#/topics">Study topics</a> &mdash; six subject areas.</span></li>
+          <li><span><a href="#/create-post">Create post</a> &mdash; add something to the demo.</span></li>
+          <li><span><a href="#/bookmarks">Bookmarks</a> &mdash; the posts you saved.</span></li>
+          <li><span><a href="#/profile">Profile</a> &mdash; the fictional student account.</span></li>
+        </ul>
+      </section>
+    </div>
+  
+  </template>
+<script src="js/script.js"></script>
+</body>
+</html>
